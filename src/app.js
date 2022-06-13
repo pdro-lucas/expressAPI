@@ -15,6 +15,7 @@ const OrderModel = require('./models/order.model');
 // Load routes
 const appRoutes = require('./routes');
 const productsRoutes = require('./routes/products.routes');
+const customerRoutes = require('./routes/customer.routes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,5 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 // set routes
 app.use('/api/v1', appRoutes);
 app.use('/api/v1/products', productsRoutes);
+app.use('/api/v1/customers', customerRoutes);
 
 module.exports = app;
