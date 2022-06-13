@@ -16,6 +16,7 @@ const OrderModel = require('./models/order.model');
 const appRoutes = require('./routes');
 const productsRoutes = require('./routes/products.routes');
 const customerRoutes = require('./routes/customer.routes');
+const orderRoutes = require('./routes/order.routes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,5 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1', appRoutes);
 app.use('/api/v1/products', productsRoutes);
 app.use('/api/v1/customers', customerRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 module.exports = app;
