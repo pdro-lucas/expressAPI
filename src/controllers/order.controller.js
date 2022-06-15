@@ -2,9 +2,10 @@
 
 const guid = require('guid');
 const repository = require('../repositories/order.repository');
+const authService = require('../services/auth.service');
 const { StatusCodes } = require('http-status-codes');
 
-exports.get = async (req, res, next) => {
+exports.get = async (req, res) => {
   try {
     const response = await repository.get();
     res.status(StatusCodes.OK).json({ status: 'ok', response });
@@ -17,13 +18,18 @@ exports.get = async (req, res, next) => {
   }
 };
 
-exports.post = async (req, res, next) => {
-  const { customer, items } = req.body;
+exports.post = async (req, res) => {
   try {
+    // get the token
+    const token = req.headers['x-access-token'];
+
+    // decode token
+    const data = await authService.decodeToken(token);
+
     const response = await repository.create({
-      customer,
+      customer: data.id,
       number: guid.raw().substring(0, 6),
-      items,
+      items: req.body.items,
     });
     res.status(StatusCodes.CREATED).json({
       status: 'ok',
